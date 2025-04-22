@@ -2,9 +2,13 @@
 font-family: Arial, Helvetica, sans-serif;
 text-align: center;
 
+}
+.sunset{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 
 }
-
 .below{
 font-family: Arial, Helvetica, sans-serif;
 font-size: x-large;
