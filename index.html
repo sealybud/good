@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    <meta charset="UTF-8">
 <head>
 
 <link rel="stylesheet" href="style.css">
@@ -13,6 +14,44 @@
     style="height: 500px;width: 800px;"
     class="sunset">
 <p><span class="basic"></p><b>Next sunset is in...</b></span></p>
+    <script>
+    async function fetchSunsetTime(40.712776, -74.005974) {
+      const response = await fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`);
+      const data = await response.json();
+      return new Date(data.results.sunset);
+    }
+
+    function startCountdown(sunsetTime) {
+      const countdownEl = document.getElementById('countdown');
+      const sunsetDisplay = document.getElementById('sunset-time');
+
+      sunsetDisplay.textContent = "Next Sunset: " + sunsetTime.toLocaleTimeString();
+
+      function updateCountdown() {
+        const now = new Date();
+        const diff = sunsetTime - now;
+
+        const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+        const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+        const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+
+        countdownEl.textContent = `${hours}:${minutes}:${seconds}`;
+      }
+
+      updateCountdown();
+      const timer = setInterval(updateCountdown, 1000);
+    }
+
+    // You can replace this with your actual location
+    const myLatitude = 40.7128; // Example: New York City
+    const myLongitude = -74.0060;
+
+    fetchSunsetTime(myLatitude, myLongitude)
+      .then(sunsetTime => startCountdown(sunsetTime))
+      .catch(() => {
+        document.getElementById('countdown').textContent = "Failed to load sunset time";
+      });
+  </script>
     
 </body>
 </html>
