@@ -7,7 +7,7 @@ text-align: center;
 .sunset{
   display: block;
   margin-left: auto;
-  float: right;
+  margin-right: auto;
 
 }
 .below{
